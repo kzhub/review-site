@@ -2,12 +2,12 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import ProductView from '@/components/ProductView'
-import ProductData from '../json/dummy.json'
 import WriteReview from '@/components/WriteReview'
+import { getProductsAndReviews } from './api/product';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home(props) {
 
 	return (
 		<>
@@ -30,7 +30,7 @@ export default function Home() {
 					}}
 				>Gear Review</h1>
 
-				{ProductData.product.map((product, index) => (
+				{props.products.map((product, index) => (
 					<ProductView key={index} id={product.id} name={product.name} brand={product.brand} cat={product.category} reviews={product.reviews} />
 				))}
 
@@ -50,3 +50,28 @@ export default function Home() {
 		</>
 	)
 }
+
+export async function getStaticProps() {
+  try {
+    // getProductsAndReviews 関数を呼び出してデータを取得
+    const products = await getProductsAndReviews();
+
+    return {
+      props: {
+        products,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        products: [],
+      },
+    };
+  }
+}
+
+
+
+
+

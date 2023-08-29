@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+	url = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Product {
+  id       Int      @id @default(autoincrement())
+  name     String   @unique
+  brand    String
+  category String
+  url      String
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  rating     Int
+  comment    String
+  @@map(name: "Review") // データベース内のテーブル名を指定
+}

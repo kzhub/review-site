@@ -43,8 +43,8 @@ const ProductView = (props) => {
 								marginBottom: '24px'
 							}}
 						>
-							{props.reviews.slice(0, 2).map((review) => (
-								<li>
+							{props.reviews.slice(0, 2).map((review,index) => (
+								<li key={index}>
 									<p>{review.rating}</p>
 									<p>{review.comment}</p>
 								</li>
