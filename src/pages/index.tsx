@@ -53,22 +53,23 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-	try {
-		const products = await getProductsAndReviews();
+  try {
+    const products = await getProductsAndReviews();
 
-		return {
-			props: {
-				products,
-			},
-		};
-	} catch (error) {
-		console.error(error);
-		return {
-			props: {
-				products: [],
-			},
-		};
-	}
+    return {
+      props: {
+        products,
+      },
+      revalidate: 10, // 10秒ごとに再生成
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        products: [],
+      }
+    };
+  }
 }
 
 
