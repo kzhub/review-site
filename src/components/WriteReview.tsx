@@ -32,6 +32,8 @@ const WriteReview = (props) => {
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
   // フォームデータを更新するハンドラー
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,15 +42,17 @@ const WriteReview = (props) => {
 
   // レビューを投稿するハンドラー
   const handleSubmit = async () => {
+		setIsSubmitting(true);
 		const convertedText = formData.comment.replace(/\\n/g, "\n")
 		formData.comment = convertedText
-		console.log(formData)
     try {
       // POSTリクエストを送信
       await axios.post("/api/createProduct", formData); // エンドポイントを適切なものに変更
       onClose(); // モーダルを閉じる
+			setIsSubmitting(false); 
     } catch (error) {
       console.error("エラー:", error);
+			setIsSubmitting(false); 
       // エラー処理を追加することができます
     }
   };
@@ -131,7 +135,7 @@ const WriteReview = (props) => {
               />
             </div>
           </ModalBody>
-          <Button onClick={handleSubmit}>投稿</Button>
+          <Button onClick={handleSubmit} isDisabled={isSubmitting}>投稿</Button>
         </ModalContent>
       </Modal>
     </div>
