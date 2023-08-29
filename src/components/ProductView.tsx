@@ -29,6 +29,7 @@ const ProductView = (props) => {
 					src={`/${props.cat}.png`}
 					width={90}
 					height={90}
+					alt={props.cat}
 				/>
 				<h2>{props.name}-{props.brand}</h2>
 				<div>
