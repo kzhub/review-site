@@ -4,7 +4,7 @@ import Link from "next/link";
 import WriteReview from "./WriteReview";
 import { Tag } from '@chakra-ui/react'
 
-const ProductView = (props) => {
+const ProductView = (props:any) => {
 	const [reviewsViewState, setReviewsViewState] = useState(false)
 
 	return (
