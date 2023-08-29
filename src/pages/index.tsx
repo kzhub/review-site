@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home(props) {
 
+	console.log(props)
 	return (
 		<>
 			<Head>
@@ -30,7 +31,7 @@ export default function Home(props) {
 					}}
 				>Gear Review</h1>
 
-				{props.products.map((product, index) => (
+				{props.products.slice().reverse().map((product, index) => (
 					<ProductView key={index} id={product.id} name={product.name} brand={product.brand} cat={product.category} reviews={product.reviews} />
 				))}
 
@@ -52,23 +53,22 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-  try {
-    // getProductsAndReviews 関数を呼び出してデータを取得
-    const products = await getProductsAndReviews();
+	try {
+		const products = await getProductsAndReviews();
 
-    return {
-      props: {
-        products,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        products: [],
-      },
-    };
-  }
+		return {
+			props: {
+				products,
+			},
+		};
+	} catch (error) {
+		console.error(error);
+		return {
+			props: {
+				products: [],
+			},
+		};
+	}
 }
 
 

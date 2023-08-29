@@ -40,7 +40,9 @@ const WriteReview = (props) => {
 
   // レビューを投稿するハンドラー
   const handleSubmit = async () => {
-		console.log("Form Data Submitted:", formData); // フォームデータをコンソールに表示
+		const convertedText = formData.comment.replace(/\\n/g, "\n")
+		formData.comment = convertedText
+		console.log(formData)
     try {
       // POSTリクエストを送信
       await axios.post("/api/createProduct", formData); // エンドポイントを適切なものに変更
@@ -137,38 +139,3 @@ const WriteReview = (props) => {
 };
 
 export default WriteReview;
-
-
-// 以下はpostのapirouteに送るmethod
-
-// const newProductData = {
-//   name: 'New Product',
-//   brand: 'Brand Name',
-//   category: 'Category',
-//   url: 'https://example.com/product',
-// };
-
-// const newReviewData = {
-//   rating: 5,
-//   comment: 'This is a great product!',
-// };
-
-// const requestData = {
-//   productData: newProductData,
-//   reviewData: newReviewData,
-// };
-
-// fetch('/api/createProductAndReview', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(requestData),
-// })
-//   .then((response) => response.json())
-//   .then((data) => {
-//     console.log('New product and review created:', data);
-//   })
-//   .catch((error) => {
-//     console.error('Error creating product and review:', error);
-//   });
